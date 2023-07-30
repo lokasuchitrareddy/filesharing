@@ -1,0 +1,119 @@
+<%@ include file="oheader.jsp"%>
+<%@ page import="java.io.*"%>
+<%@ page import="databaseconnection.*,java.util.*"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.io.*"%>
+<%@ page import="databaseconnection.*"%>
+<%@ page import="java.sql.*"%>
+<%! int rno=0;
+String s=null;StringBuffer filedata=null;%>
+<%
+
+ unm=(String)session.getAttribute("unm");
+	 String fid=request.getParameter("fid");
+	 String fnm=request.getParameter("fname");
+	 String symkey=request.getParameter("key");
+	 session.setAttribute("symkey",symkey);
+	 
+
+ Connection con1=databasecon.getconnection();
+ Statement st=con1.createStatement();
+ ResultSet r=st.executeQuery("select  *from temp ");
+if(r.next())
+	{
+
+ PreparedStatement p=con1.prepareStatement("insert into cloud(fid,filenm,filedata,aeskey,owner) values(?,?,AES_ENCRYPT(?,'"+symkey+"'),?,'"+unm+"')");
+p.setInt(1,Integer.parseInt(fid));
+p.setString(2,fnm);
+p.setBytes(3,r.getBytes(2));
+p.setString(4,symkey);
+
+p.executeUpdate();
+	
+}
+
+ %>
+<%!String  thisLine = null;
+StringBuffer sb1=null;
+String filename=null,unm=null,fid=null,fnm=null,pkey=null;
+int i=0;
+byte data[]=null;
+%>
+<% 
+	
+Connection con=databasecon.getconnection();
+Statement st11=con.createStatement();
+Statement st1=con.createStatement();
+
+ResultSet r1=st11.executeQuery("select filedata from cloud where fid="+fid+" ");
+if(r1.next())
+	{
+data=r1.getBytes(1);
+	}
+%>
+
+<br>
+	<section id="contact" class="contact">
+        <div class="container">
+            <br>
+			 <h2>File Sharing</h2>
+			 <br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form method="post" action="share.jsp" id="contactForm" >
+                        <div class="row">
+                            <div class="col-md-6 wow fadeInLeft" data-wow-duration="2s" data-wow-delay="600ms">
+
+							 <div class="form-group">
+							 <label>File Id</label>
+                                    <input type="text" class="form-control"   required name="fid"  value=<%=fid%> >
+									         
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+								<label>File Name</label>
+                                    <input type="text" class="form-control"  required name="fname" value=<%=fnm%> >
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+									<label>EncryptedData</label>
+								<textarea  placeholder=" " class="form-control"name="file"  required		type="text" cols="60"
+										rows="5" required=""><%=data%></textarea>
+                                    
+                                    <p class="help-block text-danger"></p>
+                                </div>
+									
+								<div class="form-group">
+									<label>Select User</label>
+								<select name="user" class="form-control">
+								<option value=""> -- Select --</option>
+									<%  
+									
+									ResultSet r2=st1.executeQuery("select uid from users");
+										while(r2.next()){
+									%>
+									<option value="<%=r2.getString(1)%>"><%=r2.getString(1)%></option>
+									<%}%>
+								</select>
+									 
+                                    <p class="help-block text-danger"></p>
+                                </div>
+							
+								<div class="form-group">
+                                     <button type="submit" class="btn btn-primary">Share  </button>
+
+                                </div>
+								
+                            </div>
+                            
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+		
+		<br>
+	<%@ include file="footer.jsp"%>	

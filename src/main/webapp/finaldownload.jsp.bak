@@ -1,0 +1,57 @@
+<%@page import="java.io.*,java.net.*,java.sql.*"%>
+<%@ page import="databaseconnection.*"%>
+<%! byte[] data;%>
+<%!
+public static String getMimeType(String fileUrl)
+    throws java.io.IOException, MalformedURLException 
+  {
+    String type = null;
+    URL u = new URL(fileUrl);
+    URLConnection uc = null;
+    uc = u.openConnection();
+    type = uc.getContentType();
+    return type;
+  }
+
+%>
+ <%
+    String file=request.getParameter("fname");
+	
+	    String symkey=request.getParameter("symkey");
+		
+		    String fid=request.getParameter("fid");
+			
+			System.out.print("sk="+symkey);
+			System.out.print("fid="+fid);
+			
+    String type=getMimeType("file:"+file);
+
+    response.setContentType (type);
+	
+    response.setHeader ("Content-Disposition", "attachment;     filename=\""+file+"\"");
+
+   
+        ServletOutputStream outs = response.getOutputStream();
+		
+		Connection con=databasecon.getconnection();
+		PreparedStatement p=con.prepareStatement("select AES_DECRYPT(filedata,'"+symkey+"') from cloudserver where fid="+fid+" ");
+ResultSet rr=p.executeQuery();
+if(rr.next()){
+	
+	data=rr.getBytes(1);
+	System.out.print("ifffffffffffffffff");
+	System.out.print("data="+data);
+	
+}
+
+       
+            try {
+                        outs.write(data);
+                    
+                        } catch (IOException ioe) {
+                        ioe.printStackTrace(System.out);
+                    }
+                        outs.flush();
+                    outs.close();
+                   
+        %>
