@@ -1,4 +1,4 @@
-# filesharing
+# filesharing(Acadamic Project)
 
 https://github.com/lokasuchitrareddy/filesharing/assets/140941286/83dbd393-3764-4371-aef8-21579d54eea6
 
@@ -31,3 +31,10 @@ Data User:
 The user can freely get any interested encrypted data from the cloud server.
 However, the user can decrypt the encrypted data with his/her private key if and only if
 that encrypted data is encrypted by his/her public key, otherwise they cannot access it.
+
+Project Environment :
+IDE : Eclipse
+Database : Mysql
+Languages/Frameworks:Core Java,JSP,HTML5,CSS3,Java Script, Bootstrap
+Webserver : Apache Tomcat
+
