@@ -32,9 +32,9 @@ The user can freely get any interested encrypted data from the cloud server.
 However, the user can decrypt the encrypted data with his/her private key if and only if
 that encrypted data is encrypted by his/her public key, otherwise they cannot access it.
 
-Project Environment :
-IDE : Eclipse
-Database : Mysql
-Languages/Frameworks:Core Java,JSP,HTML5,CSS3,Java Script, Bootstrap
-Webserver : Apache Tomcat
+Project Environment :<br>
+IDE : Eclipse<br>
+Database : Mysql<br>
+Languages/Frameworks:Core Java,JSP,HTML5,CSS3,Java Script, Bootstrap<br>
+Webserver : Apache Tomcat<br>
 
