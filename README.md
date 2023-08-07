@@ -1,4 +1,11 @@
 # filesharing
+
+https://github.com/lokasuchitrareddy/filesharing/assets/140941286/706aaa75-c319-4507-b539-973ecdebce2c
+
+
+https://github.com/lokasuchitrareddy/filesharing/assets/140941286/83dbd393-3764-4371-aef8-21579d54eea6
+
+
 In cloud solutions like Google's G-Suite and Microsoft OneDrive for Business, teams can work together on documents and talk in real-time.
 These apps sync files across everyone's devices, so everyone has the latest version. This is great for teams working on projects together.
 But there's a question about how safe the cloud is. Storing data online can expose it to hackers and mistakes made by users. 
@@ -11,3 +18,14 @@ RSA helps with sharing secret codes to open the files. Only the right people can
 AES is like a lock that only works with a special key, but it's used to keep the files themselves safe.
 So, in simple words, cloud tools help us work together, but we need to be careful. 
 Secure file sharing with RSA and AES keeps our stuff safe, even if there are mistakes or hackers around.
+
+Data owner:
+The data owner encrypts his/her data with a symmetric encryption algorithm like
+AES then the data owner encrypts the symmetric key under the RSA algorithm. After
+that, the owner sends the whole encrypted data and the encrypted symmetric key (denoted
+as ciphertext CT) to the cloud server to be stored in the cloud.
+
+Data User:
+The user can freely get any interested encrypted data from the cloud server.
+However, the user can decrypt the encrypted data with his/her private key if and only if
+that encrypted data is encrypted by his/her public key, otherwise they cannot access it.
